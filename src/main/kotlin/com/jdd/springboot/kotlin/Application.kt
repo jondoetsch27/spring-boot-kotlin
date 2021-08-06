@@ -1,3 +1,5 @@
+package com.jdd.springboot.kotlin
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 

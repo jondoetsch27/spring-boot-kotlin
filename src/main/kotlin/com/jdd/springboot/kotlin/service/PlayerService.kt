@@ -1,14 +1,11 @@
 package com.jdd.springboot.kotlin.service
 
 import com.jdd.springboot.kotlin.model.Player
-import org.springframework.http.ResponseEntity
 
 interface PlayerService {
-
-    public fun listPlayers(): ResponseEntity<List<Player>>
-    public fun readPlayer(): ResponseEntity<Player>
-    public fun createPlayer(): ResponseEntity<Player>
-    public fun updatePlayer(): ResponseEntity<Player>
-    public fun deletePlayer(): ResponseEntity<Player>
-
+    fun listPlayers(): List<Player>
+    fun readPlayer(playerName: String): Player
+    fun createPlayer(newPlayer: Player): Player
+    fun updatePlayer(newPlayer: Player): Player
+    fun deletePlayer(oldPlayer: Player): Player
 }

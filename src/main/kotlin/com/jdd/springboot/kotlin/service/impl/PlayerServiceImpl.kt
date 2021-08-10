@@ -1,28 +1,36 @@
 package com.jdd.springboot.kotlin.service.impl
 
 import com.jdd.springboot.kotlin.model.Player
+import com.jdd.springboot.kotlin.repository.PlayerRepository
 import com.jdd.springboot.kotlin.service.PlayerService
-import org.springframework.http.ResponseEntity
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
-class PlayerServiceImpl: PlayerService {
+@Service
+class PlayerServiceImpl : PlayerService {
 
-    override fun listPlayers(): ResponseEntity<List<Player>> {
-        TODO("Not yet implemented")
+    @Autowired
+    lateinit var playerRepository: PlayerRepository
+
+    override fun listPlayers(): List<Player> {
+        return playerRepository.findAll().toList()
     }
 
-    override fun readPlayer(): ResponseEntity<Player> {
-        TODO("Not yet implemented")
+    override fun readPlayer(playerName: String): Player {
+        return playerRepository.findById(playerName).get()
     }
 
-    override fun createPlayer(): ResponseEntity<Player> {
-        TODO("Not yet implemented")
+    override fun createPlayer(newPlayer: Player): Player {
+        return playerRepository.save(newPlayer)
     }
 
-    override fun updatePlayer(): ResponseEntity<Player> {
-        TODO("Not yet implemented")
+    override fun updatePlayer(newPlayer: Player): Player {
+        playerRepository.deleteById(newPlayer.playerId)
+        return playerRepository.save(newPlayer)
     }
 
-    override fun deletePlayer(): ResponseEntity<Player> {
-        TODO("Not yet implemented")
+    override fun deletePlayer(oldPlayer: Player): Player {
+        playerRepository.deleteById(oldPlayer.playerId)
+        return oldPlayer
     }
 }

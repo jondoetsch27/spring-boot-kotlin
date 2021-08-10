@@ -1,34 +1,65 @@
 package com.jdd.springboot.kotlin.controller
 
 import com.jdd.springboot.kotlin.model.Player
+import com.jdd.springboot.kotlin.service.impl.PlayerServiceImpl
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class PlayerController {
 
+    @Autowired
+    lateinit var playerService: PlayerServiceImpl
+
     @GetMapping("players/list")
-    public fun listPlayers(): ResponseEntity<List<Player>>? {
-        return null
+    fun listPlayers(): ResponseEntity<List<Player>> {
+        val playerResponseEntity = try {
+            ResponseEntity(playerService.listPlayers(), HttpStatus.ACCEPTED)
+        } catch (exception: Exception) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+        return playerResponseEntity
     }
 
     @GetMapping("players/read")
-    public fun readPlayer(): ResponseEntity<Player>? {
-        return null
+    fun readPlayer(@PathVariable playerName: String): ResponseEntity<Player> {
+        val playerResponseEntity = try {
+            ResponseEntity(playerService.readPlayer(playerName), HttpStatus.ACCEPTED)
+        } catch (exception: Exception) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+        return playerResponseEntity
     }
 
     @PostMapping("players/create")
-    public fun createPlayer(): ResponseEntity<Player>? {
-        return null
+    fun createPlayer(@PathVariable player: Player): ResponseEntity<Player> {
+        val playerResponseEntity = try {
+            ResponseEntity(playerService.createPlayer(player), HttpStatus.CREATED)
+        } catch (exception: Exception) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+        return playerResponseEntity
     }
 
     @PutMapping("players/update")
-    public fun updatePlayer(): ResponseEntity<Player>? {
-        return null
+    fun updatePlayer(@PathVariable player: Player): ResponseEntity<Player> {
+        val playerResponseEntity = try {
+            ResponseEntity(playerService.updatePlayer(player), HttpStatus.ACCEPTED)
+        } catch (exception: Exception) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+        return playerResponseEntity
     }
 
     @DeleteMapping("players/delete")
-    public fun deletePlayer(): ResponseEntity<Player>? {
-        return null
+    fun deletePlayer(@PathVariable player: Player): ResponseEntity<Player> {
+        val playerResponseEntity = try {
+            ResponseEntity(playerService.deletePlayer(player), HttpStatus.GONE)
+        } catch (exception: Exception) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+        return playerResponseEntity
     }
 }

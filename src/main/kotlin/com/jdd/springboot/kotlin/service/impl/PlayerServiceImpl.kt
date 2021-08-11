@@ -15,7 +15,9 @@ class PlayerServiceImpl : PlayerService {
     lateinit var playerRepository: PlayerRepository
 
     override fun listPlayers(): List<Player> {
-        return playerRepository.findAll().toList()
+        return playerRepository.findAll().toList().ifEmpty {
+            throw PlayerNotFoundException()
+        }
     }
 
     override fun readPlayer(playerName: String): Player {

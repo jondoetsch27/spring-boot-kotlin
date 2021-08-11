@@ -19,6 +19,8 @@ class PlayerController {
     fun listPlayers(): ResponseEntity<List<Player>> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.listPlayers(), HttpStatus.ACCEPTED)
+        } catch (exception: PlayerNotFoundException) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
         } catch (exception: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }

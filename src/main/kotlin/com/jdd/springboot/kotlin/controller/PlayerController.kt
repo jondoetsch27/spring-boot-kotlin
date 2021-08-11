@@ -1,5 +1,7 @@
 package com.jdd.springboot.kotlin.controller
 
+import com.jdd.springboot.kotlin.exception.DuplicatePlayerException
+import com.jdd.springboot.kotlin.exception.PlayerNotFoundException
 import com.jdd.springboot.kotlin.model.Player
 import com.jdd.springboot.kotlin.service.impl.PlayerServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,6 +29,8 @@ class PlayerController {
     fun readPlayer(@PathVariable playerName: String): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.readPlayer(playerName), HttpStatus.ACCEPTED)
+        } catch (exception: PlayerNotFoundException) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
         } catch (exception: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -37,6 +41,8 @@ class PlayerController {
     fun createPlayer(@PathVariable player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.createPlayer(player), HttpStatus.CREATED)
+        } catch (exception: DuplicatePlayerException) {
+            ResponseEntity(HttpStatus.CONFLICT)
         } catch (exception: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -47,6 +53,8 @@ class PlayerController {
     fun updatePlayer(@PathVariable player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.updatePlayer(player), HttpStatus.ACCEPTED)
+        } catch (exception: PlayerNotFoundException) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
         } catch (exception: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -57,6 +65,8 @@ class PlayerController {
     fun deletePlayer(@PathVariable player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.deletePlayer(player), HttpStatus.GONE)
+        } catch (exception: PlayerNotFoundException) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
         } catch (exception: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }

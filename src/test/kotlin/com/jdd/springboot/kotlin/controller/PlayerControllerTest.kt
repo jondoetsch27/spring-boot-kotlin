@@ -5,11 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.jdd.springboot.kotlin.model.Player
 import com.jdd.springboot.kotlin.service.impl.PlayerServiceImpl
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -106,6 +103,24 @@ class PlayerControllerTest {
 
     @Test
     fun deletePlayerTest1() {
+        val testPlayer = Player(
+            playerId = "JaylenWaddle17",
+            playerFirstName = "Jaylen",
+            playerLastName = "Waddle",
+            playerNumber = "17",
+            playerPosition = "WR",
+            playerTeam = "MIA"
+        )
+        given(playerService.deletePlayer(testPlayer)).willReturn(testPlayer)
+        mockMvc.perform(
+            MockMvcRequestBuilders
+                .delete("/players/delete")
+                .content(objectMapper.writeValueAsString(testPlayer))
+                .contentType("application/json")
+        )
+            .andExpect(MockMvcResultMatchers.status().isGone)
+            .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+            .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(testPlayer)))
     }
 
     @Test

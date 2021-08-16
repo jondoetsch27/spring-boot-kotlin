@@ -51,7 +51,9 @@ class PlayerControllerTest {
             playerTeam = "JAX",
         )
         given(playerService.readPlayer(testPlayer.playerId)).willReturn(testPlayer)
-        mockMvc.perform(MockMvcRequestBuilders.get("/players/read/${testPlayer.playerId}"))
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/players/read/${testPlayer.playerId}")
+        )
             .andExpect(MockMvcResultMatchers.status().isAccepted)
             .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
             .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(testPlayer)))

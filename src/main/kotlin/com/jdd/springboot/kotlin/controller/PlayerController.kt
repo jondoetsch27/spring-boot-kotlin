@@ -27,10 +27,10 @@ class PlayerController {
         return playerResponseEntity
     }
 
-    @GetMapping("players/read")
-    fun readPlayer(@PathVariable playerName: String): ResponseEntity<Player> {
+    @GetMapping("players/read/{playerId}")
+    fun readPlayer(@PathVariable playerId: String): ResponseEntity<Player> {
         val playerResponseEntity = try {
-            ResponseEntity(playerService.readPlayer(playerName), HttpStatus.ACCEPTED)
+            ResponseEntity(playerService.readPlayer(playerId), HttpStatus.ACCEPTED)
         } catch (exception: PlayerNotFoundException) {
             ResponseEntity(HttpStatus.NOT_FOUND)
         } catch (exception: Exception) {
@@ -40,7 +40,7 @@ class PlayerController {
     }
 
     @PostMapping("players/create")
-    fun createPlayer(@PathVariable player: Player): ResponseEntity<Player> {
+    fun createPlayer(@RequestBody player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.createPlayer(player), HttpStatus.CREATED)
         } catch (exception: DuplicatePlayerException) {
@@ -52,7 +52,7 @@ class PlayerController {
     }
 
     @PutMapping("players/update")
-    fun updatePlayer(@PathVariable player: Player): ResponseEntity<Player> {
+    fun updatePlayer(@RequestBody player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.updatePlayer(player), HttpStatus.ACCEPTED)
         } catch (exception: PlayerNotFoundException) {
@@ -64,7 +64,7 @@ class PlayerController {
     }
 
     @DeleteMapping("players/delete")
-    fun deletePlayer(@PathVariable player: Player): ResponseEntity<Player> {
+    fun deletePlayer(@RequestBody player: Player): ResponseEntity<Player> {
         val playerResponseEntity = try {
             ResponseEntity(playerService.deletePlayer(player), HttpStatus.GONE)
         } catch (exception: PlayerNotFoundException) {

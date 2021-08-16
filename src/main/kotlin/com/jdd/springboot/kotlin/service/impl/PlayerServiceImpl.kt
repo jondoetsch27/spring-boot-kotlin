@@ -23,9 +23,9 @@ class PlayerServiceImpl : PlayerService {
     }
 
     @Transactional
-    override fun readPlayer(playerName: String): Player {
-        return if (playerRepository.findById(playerName).isPresent) {
-            playerRepository.findById(playerName).get()
+    override fun readPlayer(playerId: String): Player {
+        return if (playerRepository.findById(playerId).isPresent) {
+            playerRepository.findById(playerId).get()
         } else {
             throw PlayerNotFoundException()
         }

@@ -91,7 +91,7 @@ class PlayerServiceTest {
     }
 
     @Test
-    fun deletePlayerTest() {
+    fun deletePlayerTest1() {
         given(playerRepository.existsById(testPlayer3.playerId)).willReturn(true)
         doNothing().`when`(playerRepository).deleteById(testPlayer3.playerId)
         val expectedResult = testPlayer3

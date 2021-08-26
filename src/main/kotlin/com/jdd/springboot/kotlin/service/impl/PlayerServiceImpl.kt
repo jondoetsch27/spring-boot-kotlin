@@ -5,15 +5,13 @@ import com.jdd.springboot.kotlin.exception.PlayerNotFoundException
 import com.jdd.springboot.kotlin.model.Player
 import com.jdd.springboot.kotlin.repository.PlayerRepository
 import com.jdd.springboot.kotlin.service.PlayerService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class PlayerServiceImpl : PlayerService {
-
-    @Autowired
-    lateinit var playerRepository: PlayerRepository
+class PlayerServiceImpl(
+    val playerRepository: PlayerRepository
+) : PlayerService {
 
     @Transactional
     override fun listPlayers(): List<Player> {

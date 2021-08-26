@@ -3,16 +3,13 @@ package com.jdd.springboot.kotlin.service
 import com.jdd.springboot.kotlin.model.Player
 import com.jdd.springboot.kotlin.repository.PlayerRepository
 import com.jdd.springboot.kotlin.service.impl.PlayerServiceImpl
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.doNothing
 import org.mockito.BDDMockito.given
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.*
 import kotlin.test.assertEquals
